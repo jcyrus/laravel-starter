@@ -1,13 +1,100 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Personal Laravel Starter Kit
 
-## Laravel Starter Kit
+A strict, opinionated, and modern boilerplate for my future Laravel projects. This kit is pre-configured with my preferred stack, development tools, and code standards.
 
-Just starting out a template to help myself quickly start a Laravel project. 
+## 🛠 Tech Stack
 
-## About Laravel
+- **Framework:** Laravel [Current Version]
+- **Language:** PHP 8.2+
+- **Frontend:** [Blade / Vue / React - Edit as needed] + Tailwind CSS
+- **Testing:** Pest PHP
+- **Static Analysis:** PHPStan / Pint
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Features
 
-## License
+- 📦 **Latest Dependencies:** Always maintained on the latest stable Laravel version.
+- 🐳 **Docker Ready:** Includes `docker-compose.yml` for instant local development (via Sail).
+- 🔒 **Security Hardened:** Pre-configured headers and strict generic type checks.
+- 🧹 **Code Quality:** CI workflows for linting (Laravel Pint) and static analysis.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## ⚡️ Quick Start
+
+### Prerequisites
+
+- PHP 8.2 or higher
+- Composer
+- Node.js & NPM
+
+### Installation
+
+1. **Clone the repository** (or use as template)
+
+```bash
+git clone [https://github.com/your-username/your-starter-kit.git](https://github.com/your-username/your-starter-kit.git) my-new-project
+cd my-new-project
+```
+
+2. **Install Dependencies**
+
+```bash
+composer install
+npm install
+
+```
+
+3. **Environment Setup**
+
+```bash
+cp .env.example .env
+php artisan key:generate
+
+```
+
+4. **Database Setup**
+   Ensure your database credentials in `.env` are correct, then run:
+
+```bash
+php artisan migrate --seed
+
+```
+
+5. **Start Development**
+
+```bash
+# Start the backend server
+php artisan serve
+
+# Start the frontend build process (in a separate terminal)
+npm run dev
+
+```
+
+## 🧪 Testing & Quality
+
+This starter kit enforces high code quality standards.
+
+```bash
+# Run the test suite (Pest)
+php artisan test
+
+# Fix code style issues automatically
+./vendor/bin/pint
+
+# Run static analysis
+./vendor/bin/phpstan analyse
+
+```
+
+## 📦 Updating Dependencies
+
+To keep this starter kit fresh, run the following regularly:
+
+```bash
+composer update
+npm update
+
+```
+
+## 📜 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
