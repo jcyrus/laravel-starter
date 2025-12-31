@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Team;
@@ -26,8 +28,11 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $firstName = fake()->firstName();
+        $lastName = fake()->lastName();
+
         return [
-            'name' => fake()->name(),
+            'name' => $firstName.' '.$lastName,
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
@@ -68,5 +73,47 @@ class UserFactory extends Factory
                 ->when(is_callable($callback), $callback),
             'ownedTeams'
         );
+    }
+
+    /**
+     * Indicate that the user should be a super admin.
+     */
+    public function superAdmin(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            $user->assignRole('super-admin');
+        });
+    }
+
+    /**
+     * Indicate that the user should be an admin.
+     */
+    public function admin(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            $user->assignRole('admin');
+        });
+    }
+
+    /**
+     * Indicate that the user should be a regular user.
+     */
+    public function regularUser(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            $user->assignRole('user');
+        });
+    }
+
+    /**
+     * Indicate that the user should have specific permissions.
+     *
+     * @param  array<string>|string  $permissions
+     */
+    public function withPermissions(array|string $permissions): static
+    {
+        return $this->afterCreating(function (User $user) use ($permissions): void {
+            $user->givePermissionTo($permissions);
+        });
     }
 }
