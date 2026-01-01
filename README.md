@@ -1,99 +1,197 @@
-# 🚀 Personal Laravel Starter Kit
+# 🚀 Premium Laravel 12 Starter Kit
 
-A strict, opinionated, and modern boilerplate for my future Laravel projects. This kit is pre-configured with my preferred stack, development tools, and code standards.
+A strict, opinionated, and production-ready boilerplate for modern Laravel projects. Built with 2025 best practices, strict types, comprehensive testing, and PostgreSQL.
 
 ## 🛠 Tech Stack
 
-- **Framework:** Laravel [Current Version]
-- **Language:** PHP 8.2+
-- **Frontend:** [Blade / Vue / React - Edit as needed] + Tailwind CSS
-- **Testing:** Pest PHP
-- **Static Analysis:** PHPStan / Pint
+- **Framework:** Laravel 12.44.0
+- **Language:** PHP 8.5.1 (with strict types everywhere)
+- **Frontend:** Livewire 3 + Jetstream 5 + Tailwind CSS
+- **Database:** PostgreSQL 16 (Docker)
+- **Search:** Laravel Scout (Database Driver)
+- **Testing:** Pest PHP 3 + Architecture Tests
+- **Static Analysis:** Larastan (PHPStan Level 9)
+- **Code Style:** Laravel Pint
+- **Auth:** Laravel Fortify + Sanctum
+- **CI/CD:** GitHub Actions
 
 ## ✨ Features
 
-- 📦 **Latest Dependencies:** Always maintained on the latest stable Laravel version.
-- 🐳 **Docker Ready:** Includes `docker-compose.yml` for instant local development (via Sail).
-- 🔒 **Security Hardened:** Pre-configured headers and strict generic type checks.
-- 🧹 **Code Quality:** CI workflows for linting (Laravel Pint) and static analysis.
+- ✅ **Strict Types:** `declare(strict_types=1)` in all PHP files
+- ✅ **PHPStan Level 9:** Zero errors, maximum type safety
+- ✅ **Architecture Tests:** Enforced coding standards with Pest
+- ✅ **PostgreSQL 16:** Full-text search extensions (`pg_trgm`, `unaccent`)
+- ✅ **Docker Ready:** One command to start PostgreSQL
+- ✅ **Laravel Scout:** Database-driven search (no external services)
+- ✅ **IDE Support:** Auto-generated helper files for autocomplete
+- ✅ **CI Pipeline:** Automated testing, linting, and analysis
+- ✅ **Modern Auth:** Two-factor authentication, API tokens, profile management
 
 ## ⚡️ Quick Start
 
 ### Prerequisites
 
-- PHP 8.2 or higher
-- Composer
-- Node.js & NPM
+- **PHP 8.4+** (8.5 recommended)
+- **Composer 2.x**
+- **Node.js 20+** & NPM
+- **Docker** (for PostgreSQL)
 
 ### Installation
 
-1. **Clone the repository** (or use as template)
+**1. Clone the repository**
 
 ```bash
-git clone [https://github.com/your-username/your-starter-kit.git](https://github.com/your-username/your-starter-kit.git) my-new-project
+git clone https://github.com/your-username/laravel-premium-starter.git my-new-project
 cd my-new-project
 ```
 
-2. **Install Dependencies**
+**2. Install Dependencies**
 
 ```bash
 composer install
 npm install
-
 ```
 
-3. **Environment Setup**
+**3. Environment Setup**
 
 ```bash
 cp .env.example .env
 php artisan key:generate
-
 ```
 
-4. **Database Setup**
-   Ensure your database credentials in `.env` are correct, then run:
+**4. Start PostgreSQL (Docker)**
 
 ```bash
-php artisan migrate --seed
-
+docker compose up -d postgres
 ```
 
-5. **Start Development**
+This starts PostgreSQL 16 on port **5432** (or 5433 if 5432 is taken) with:
+- Database: `laravel`
+- Username: `laravel`
+- Password: `secret`
+- Extensions: `pg_trgm`, `unaccent`
+
+**5. Run Migrations**
 
 ```bash
-# Start the backend server
+php artisan migrate:fresh
+```
+
+**6. Build Frontend Assets**
+
+```bash
+npm run build
+```
+
+**7. Start Development Server**
+
+```bash
 php artisan serve
-
-# Start the frontend build process (in a separate terminal)
-npm run dev
-
 ```
+
+Visit: `http://localhost:8000`
 
 ## 🧪 Testing & Quality
 
-This starter kit enforces high code quality standards.
+### Run Tests
 
 ```bash
-# Run the test suite (Pest)
-php artisan test
+./vendor/bin/pest                # All tests
+./vendor/bin/pest --parallel     # Parallel execution
+./vendor/bin/pest tests/Arch.php # Architecture tests only
+```
 
-# Fix code style issues automatically
-./vendor/bin/pint
+### Code Quality Checks
 
-# Run static analysis
-./vendor/bin/phpstan analyse
+```bash
+./vendor/bin/pint                      # Auto-fix code style
+./vendor/bin/pint --test               # Check style (CI mode)
+./vendor/bin/phpstan analyse           # Static analysis (Level 9)
+```
 
+### IDE Helper
+
+```bash
+php artisan ide-helper:generate        # Update autocomplete
+php artisan ide-helper:models          # Generate model annotations
+```
+
+## 🐳 Docker Services
+
+### Available Services
+
+```bash
+docker compose up -d           # Start all services
+docker compose up -d postgres  # PostgreSQL only
+docker compose up -d redis     # Redis only
+docker compose up -d mailpit   # Local email testing
+```
+
+### Service Ports
+
+- **PostgreSQL:** 5432 (or `DB_PORT` from .env)
+- **Redis:** 6379
+- **Mailpit UI:** http://localhost:8025
+- **Mailpit SMTP:** 1025
+
+### Stop Services
+
+```bash
+docker compose down           # Stop all
+docker compose down -v        # Stop and remove volumes
 ```
 
 ## 📦 Updating Dependencies
 
-To keep this starter kit fresh, run the following regularly:
-
 ```bash
 composer update
 npm update
-
 ```
+
+After updates, IDE helpers will auto-regenerate via composer scripts.
+
+## 🔍 Laravel Scout (Search)
+
+This kit uses **database driver** (no Algolia/Meilisearch needed).
+
+### Make Model Searchable
+
+```php
+use Laravel\Scout\Searchable;
+
+class Post extends Model
+{
+    use Searchable;
+    
+    public function toSearchableArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'content' => $this->content,
+        ];
+    }
+}
+```
+
+### Search Usage
+
+```php
+Post::search('laravel')->get();
+```
+
+## 🚀 Deployment
+
+### Production Checklist
+
+- [ ] Set `APP_ENV=production`
+- [ ] Set `APP_DEBUG=false`
+- [ ] Configure real database credentials
+- [ ] Set up Amazon SES for email
+- [ ] Run `composer install --optimize-autoloader --no-dev`
+- [ ] Run `npm run build`
+- [ ] Run `php artisan config:cache`
+- [ ] Run `php artisan route:cache`
+- [ ] Run `php artisan view:cache`
 
 ## 📜 License
 

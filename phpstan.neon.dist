@@ -1,0 +1,20 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - database/factories/
+        - database/seeders/
+        - routes/
+    level: 9
+    checkOctaneCompatibility: true
+    checkModelProperties: true
+    treatPhpDocTypesAsCertain: false
+    excludePaths:
+        - tests/*
+    ignoreErrors:
+        # Team model is referenced in UserFactory but not enabled in this starter kit
+        - '#Call to static method factory\(\) on an unknown class App\\Models\\Team#'
+        # Factory return type incompatibility - safe to ignore for model factories
+        - '#Return type \(array<string, mixed>\) of method Database\\Factories\\UserFactory::definition\(\) should be compatible with return type \(array<model property of App\\Models\\User, mixed>\)#'

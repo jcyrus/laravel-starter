@@ -3,5 +3,12 @@
 @tailwind utilities;
 
 [x-cloak] {
-    display: none;
+  display: none;
+}
+
+@layer base {
+  html {
+    /* Reserves space for the scrollbar to prevent layout shift */
+    scrollbar-gutter: stable;
+  }
 }
