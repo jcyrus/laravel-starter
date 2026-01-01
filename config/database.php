@@ -4,6 +4,24 @@ declare(strict_types=1);
 
 use Illuminate\Support\Str;
 
+// Database configuration constants
+const DEFAULT_HOST = '127.0.0.1';
+const DEFAULT_DB_NAME = 'laravel';
+const DEFAULT_USERNAME_ROOT = 'root';
+const DEFAULT_PASSWORD_EMPTY = '';
+const MYSQL_PORT = '3306';
+const PGSQL_PORT = '5432';
+const PGSQL_USERNAME = 'laravel';
+const PGSQL_PASSWORD = 'secret';
+const SQLSRV_HOST = 'localhost';
+const SQLSRV_PORT = '1433';
+const REDIS_PORT = '6379';
+const REDIS_DB_DEFAULT = '0';
+const REDIS_DB_CACHE = '1';
+const CHARSET_UTF8MB4 = 'utf8mb4';
+const CHARSET_UTF8 = 'utf8';
+const COLLATION_UTF8MB4 = 'utf8mb4_unicode_ci';
+
 return [
 
     /*
@@ -47,52 +65,64 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => env('DB_CHARSET', 'utf8mb4'),
-            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'host' => env('DB_HOST', DEFAULT_HOST),
+            'port' => env('DB_PORT', MYSQL_PORT),
+            'database' => env('DB_DATABASE', DEFAULT_DB_NAME),
+            'username' => env('DB_USERNAME', DEFAULT_USERNAME_ROOT),
+            'password' => env('DB_PASSWORD', DEFAULT_PASSWORD_EMPTY),
+            'unix_socket' => env('DB_SOCKET', DEFAULT_PASSWORD_EMPTY),
+            'charset' => env('DB_CHARSET', CHARSET_UTF8MB4),
+            'collation' => env('DB_COLLATION', COLLATION_UTF8MB4),
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                class_exists('\Pdo\Mysql') ? \Pdo\Mysql::ATTR_SSL_CA : PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
+            'options' => extension_loaded('pdo_mysql') ? (function () {
+                // PHP 8.4+ uses Pdo\Mysql::ATTR_SSL_CA, older versions use PDO::MYSQL_ATTR_SSL_CA
+                $sslCaAttribute = defined('Pdo\\Mysql::ATTR_SSL_CA')
+                    ? constant('Pdo\\Mysql::ATTR_SSL_CA')
+                    : PDO::MYSQL_ATTR_SSL_CA;
+                return array_filter([
+                    $sslCaAttribute => env('MYSQL_ATTR_SSL_CA'),
+                ]);
+            })() : [],
         ],
 
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => env('DB_CHARSET', 'utf8mb4'),
-            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'host' => env('DB_HOST', DEFAULT_HOST),
+            'port' => env('DB_PORT', MYSQL_PORT),
+            'database' => env('DB_DATABASE', DEFAULT_DB_NAME),
+            'username' => env('DB_USERNAME', DEFAULT_USERNAME_ROOT),
+            'password' => env('DB_PASSWORD', DEFAULT_PASSWORD_EMPTY),
+            'unix_socket' => env('DB_SOCKET', DEFAULT_PASSWORD_EMPTY),
+            'charset' => env('DB_CHARSET', CHARSET_UTF8MB4),
+            'collation' => env('DB_COLLATION', COLLATION_UTF8MB4),
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                class_exists('\Pdo\Mysql') ? \Pdo\Mysql::ATTR_SSL_CA : PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
+            'options' => extension_loaded('pdo_mysql') ? (function () {
+                // PHP 8.4+ uses Pdo\Mysql::ATTR_SSL_CA, older versions use PDO::MYSQL_ATTR_SSL_CA
+                $sslCaAttribute = defined('Pdo\\Mysql::ATTR_SSL_CA')
+                    ? constant('Pdo\\Mysql::ATTR_SSL_CA')
+                    : PDO::MYSQL_ATTR_SSL_CA;
+                return array_filter([
+                    $sslCaAttribute => env('MYSQL_ATTR_SSL_CA'),
+                ]);
+            })() : [],
         ],
 
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'laravel'),
-            'password' => env('DB_PASSWORD', 'secret'),
-            'charset' => env('DB_CHARSET', 'utf8'),
+            'host' => env('DB_HOST', DEFAULT_HOST),
+            'port' => env('DB_PORT', PGSQL_PORT),
+            'database' => env('DB_DATABASE', DEFAULT_DB_NAME),
+            'username' => env('DB_USERNAME', PGSQL_USERNAME),
+            'password' => env('DB_PASSWORD', PGSQL_PASSWORD),
+            'charset' => env('DB_CHARSET', CHARSET_UTF8),
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
@@ -107,12 +137,12 @@ return [
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => env('DB_CHARSET', 'utf8'),
+            'host' => env('DB_HOST', SQLSRV_HOST),
+            'port' => env('DB_PORT', SQLSRV_PORT),
+            'database' => env('DB_DATABASE', DEFAULT_DB_NAME),
+            'username' => env('DB_USERNAME', DEFAULT_USERNAME_ROOT),
+            'password' => env('DB_PASSWORD', DEFAULT_PASSWORD_EMPTY),
+            'charset' => env('DB_CHARSET', CHARSET_UTF8),
             'prefix' => '',
             'prefix_indexes' => true,
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
@@ -159,20 +189,20 @@ return [
 
         'default' => [
             'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'host' => env('REDIS_HOST', DEFAULT_HOST),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_DB', '0'),
+            'port' => env('REDIS_PORT', REDIS_PORT),
+            'database' => env('REDIS_DB', REDIS_DB_DEFAULT),
         ],
 
         'cache' => [
             'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'host' => env('REDIS_HOST', DEFAULT_HOST),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_CACHE_DB', '1'),
+            'port' => env('REDIS_PORT', REDIS_PORT),
+            'database' => env('REDIS_CACHE_DB', REDIS_DB_CACHE),
         ],
 
     ],
