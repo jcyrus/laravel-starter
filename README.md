@@ -5,7 +5,7 @@ A strict, opinionated, and production-ready boilerplate for modern Laravel proje
 ## 🛠 Tech Stack
 
 - **Framework:** Laravel 12.44.0
-- **Language:** PHP 8.5.1 (with strict types everywhere)
+- **Language:** PHP 8.4 (with strict types everywhere)
 - **Frontend:** Livewire 3 + Jetstream 5 + Tailwind CSS
 - **Database:** PostgreSQL 16 (Docker)
 - **Search:** Laravel Scout (Database Driver)
@@ -31,7 +31,7 @@ A strict, opinionated, and production-ready boilerplate for modern Laravel proje
 
 ### Prerequisites
 
-- **PHP 8.4+** (8.5 recommended)
+- **PHP 8.4+**
 - **Composer 2.x**
 - **Node.js 20+** & NPM
 - **Docker** (for PostgreSQL)
@@ -66,6 +66,7 @@ docker compose up -d postgres
 ```
 
 This starts PostgreSQL 16 on port **5432** (or 5433 if 5432 is taken) with:
+
 - Database: `laravel`
 - Username: `laravel`
 - Password: `secret`
@@ -162,7 +163,7 @@ use Laravel\Scout\Searchable;
 class Post extends Model
 {
     use Searchable;
-    
+
     public function toSearchableArray(): array
     {
         return [

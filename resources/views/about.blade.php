@@ -112,7 +112,7 @@
                     <dl class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <dt class="text-sm font-semibold text-gray-900 dark:text-white mb-1">Backend</dt>
-                            <dd class="text-gray-600 dark:text-gray-400">Laravel 12, PHP 8.5, PostgreSQL 16</dd>
+                            <dd class="text-gray-600 dark:text-gray-400">Laravel 12, PHP 8.4, PostgreSQL 16</dd>
                         </div>
                         <div>
                             <dt class="text-sm font-semibold text-gray-900 dark:text-white mb-1">Frontend</dt>

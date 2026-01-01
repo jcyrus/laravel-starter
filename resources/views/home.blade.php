@@ -19,7 +19,7 @@
                 <!-- Badge -->
                 <div
                     class="inline-flex items-center px-4 py-1.5 mb-6 text-sm font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 rounded-full border border-blue-200 dark:border-blue-800">
-                    <span>Laravel 12 &bull; PHP 8.5 &bull; Production Ready</span>
+                    <span>Laravel 12 &bull; PHP 8.4 &bull; Production Ready</span>
                 </div>
 
                 <!-- Main Headline -->
@@ -221,7 +221,7 @@
                         Strict Type Safety
                     </h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm">
-                        PHP 8.5 strict types everywhere. PHPStan Level 9. Catch bugs before production.
+                        PHP 8.4 strict types everywhere. PHPStan Level 9. Catch bugs before production.
                     </p>
                 </div>
 
@@ -287,7 +287,7 @@
                 </span>
                 <span
                     class="px-5 py-2.5 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-700 dark:text-gray-300 font-medium text-sm">
-                    PHP 8.5
+                    PHP 8.4
                 </span>
                 <span
                     class="px-5 py-2.5 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-700 dark:text-gray-300 font-medium text-sm">
