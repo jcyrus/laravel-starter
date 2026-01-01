@@ -1,8 +1,6 @@
-<x-app-layout>
+<x-sidebar-app>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('User Management') }}
-        </h2>
+        User Management
     </x-slot>
 
     <div class="py-12">
@@ -96,4 +94,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-sidebar-app>
