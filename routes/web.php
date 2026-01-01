@@ -15,6 +15,14 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+Route::get('/terms', function () {
+    return view('terms', ['terms' => file_get_contents(resource_path('markdown/terms.md'))]);
+})->name('terms.show');
+
+Route::get('/policy', function () {
+    return view('policy', ['policy' => file_get_contents(resource_path('markdown/policy.md'))]);
+})->name('policy.show');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

@@ -339,7 +339,7 @@
                 </div>
                 <pre class="p-6 text-sm text-gray-300 overflow-x-auto"><code><span class="text-gray-500"># Clone the repository</span>
 <span class="text-green-400">git clone</span> https://github.com/jcyrus/laravel-mvp.git
-<span class="text-blue-400">cd</span> laravel-starter
+<span class="text-blue-400">cd</span> laravel-mvp
 
 <span class="text-gray-500"># Install dependencies</span>
 <span class="text-green-400">composer install</span> && <span class="text-green-400">npm install</span>

@@ -3,7 +3,7 @@
     darkMode: localStorage.getItem('darkMode') === 'true',
     toggleDarkMode() {
         this.darkMode = !this.darkMode;
-        localStorage.setItem('darkMode', this.darkMode);
+        localStorage.setItem('darkMode', this.darkMode ? 'true' : 'false');
         if (this.darkMode) {
             document.documentElement.classList.add('dark');
         } else {

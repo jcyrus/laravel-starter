@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -38,7 +40,7 @@ return [
     |
     */
 
-    'layout' => 'components.layouts.app',
+    'layout' => 'layouts.app',
 
     /*
     |---------------------------------------------------------------------------
