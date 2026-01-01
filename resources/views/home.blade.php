@@ -272,7 +272,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                    Built with 2025 Best Practices
+                    Built with 2026 Best Practices
                 </h2>
                 <p class="text-lg text-gray-600 dark:text-gray-300">
                     Modern tech stack chosen for reliability, performance, and developer experience
